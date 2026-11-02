@@ -1,4 +1,3 @@
--- ========== FILE: sql/01_three_way_match.sql ==========
 CREATE OR REPLACE VIEW porto_proc.v_three_way_match AS
 WITH gr AS (
     SELECT po_line_id,
