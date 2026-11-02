@@ -57,7 +57,7 @@ flags AS (
           OR (ekor_po > 0 AND ekor_gr <> ekor_po) ) THEN 1 ELSE 0 END AS f_qty_gr,
     CASE WHEN qty_gr > 0 AND qty_inv > 0 AND ABS(var_inv_gr) > tol_inv_vs_gr THEN 1 ELSE 0 END AS f_qty_inv,
     CASE WHEN qty_inv > 0 AND ABS((harga_inv - harga_po)/harga_po) > tol_harga THEN 1 ELSE 0 END AS f_harga,
-    CASE WHEN qty_inv > 0 AND ABS(inv_tax - pajak_seharusnya) > (SELECT tol_pajak FROM portofolio_procurement.param_general) THEN 1 ELSE 0 END AS f_pajak,
+    CASE WHEN qty_inv > 0 AND ABS(inv_tax - pajak_seharusnya) > (SELECT tol_pajak FROM porto_proc.param_general) THEN 1 ELSE 0 END AS f_pajak,
     CASE WHEN qty_gr > 0 AND qty_inv > 0
          THEN LEAST(qty_gr, qty_inv) * harga_po ELSE 0 END AS dibayar_wajar
   FROM calc
@@ -143,7 +143,7 @@ WITH v AS (
 SELECT v.po_line_id, v.supplier_id, v.kategori, ROUND(100.0*v.x,2) AS selisih_pct,
        ROUND((v.x - g2.mu)/g2.sd, 2) AS z_score
 FROM v JOIN g2 ON g2.kategori = v.kategori
-WHERE g2.sd > 0 AND ABS((v.x - g2.mu)/g2.sd) > (SELECT z_outlier FROM portofolio_procurement.param_general)
+WHERE g2.sd > 0 AND ABS((v.x - g2.mu)/g2.sd) > (SELECT z_outlier FROM porto_proc.param_general)
 ORDER BY ABS((v.x - g2.mu)/g2.sd) DESC;
 
 -- Q6. Antrian tindak lanjut (non-MATCH) dengan prioritas dan aging
