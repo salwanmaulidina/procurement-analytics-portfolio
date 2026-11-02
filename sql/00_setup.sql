@@ -11,7 +11,7 @@ CREATE OR REPLACE TABLE porto_proc.param_tolerance (
       tol_inv_vs_gr FLOAT64,  -- toleransi qty faktur vs GR (±)
       tol_harga FLOAT64       -- toleransi harga faktur vs PO (±)
 );
-CREATE OR REPLACE VIEW portofolio_procurement.param_general AS
+CREATE OR REPLACE VIEW porto_proc.param_general AS
 SELECT
   DATE '2026-10-15' AS cutoff_date,
     14                AS thr_followup_hari,  -- GR belum difakturkan > N hari -> SEDANG
@@ -28,7 +28,7 @@ CREATE OR REPLACE TABLE porto_proc.gr_line (
     gr_line_id STRING, gr_no STRING, gr_date DATE, po_line_id STRING, supplier_id STRING,
     qty_diterima FLOAT64, ekor_diterima INT64, surat_jalan STRING, lokasi_terima STRING, catatan STRING
 );
-CREATE OR REPLACE TABLE portofolio_procurement.inv_line (
+CREATE OR REPLACE TABLE porto_proc.inv_line (
     inv_line_id STRING, inv_no STRING, inv_date DATE, tgl_input DATE, supplier_id STRING, po_line_id STRING,
     qty_faktur FLOAT64, harga_faktur FLOAT64, jumlah_faktur FLOAT64, ppn_faktur FLOAT64, total_faktur FLOAT64
 );
